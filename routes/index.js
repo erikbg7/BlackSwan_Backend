@@ -15,6 +15,7 @@ api.delete('/product/:productId', auth, productCtrl.deleteProduct)
 api.post('/user', userCtrl.saveUser)
 api.get('/users', userCtrl.getUsers)
 api.get('/user/:userId', userCtrl.getUser)
+api.delete('/user/:userId', userCtrl.deleteUser)
 
 api.post('/signup', userCtrl.signUp)
 api.post('/signin', userCtrl.signIn)
