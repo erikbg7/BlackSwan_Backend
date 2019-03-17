@@ -71,11 +71,26 @@ function getUser (req,res) {
 }
 
 
+function deleteUser (req,res)  {
+    let userId = req.params.userId
+
+    User.findById(userId, (err, user) => {
+        if (err) res.status(500).send({message: `Error al eliminarlo: ${err}`})
+    
+        user.remove(err => {
+            if (err) res.status(500).send({message: `Error al eliminarlo: ${err}`})
+            
+            res.status(200).send({message: `user eliminado`})
+        })
+    })
+}
+
 module.exports = {
     signUp,
     saveUser,
     getUsers,
     getUser,
+    deleteUser,
     signIn
 }
 
