@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    
+    let productList = document.createElement('ul')
+
+    const myHeaders = new Headers();
+    myHeaders.append('authorization', 'Beaer ${localStorage.token}')
+
+    fetch('api/product', {
+        method: 'GET',
+        headers: myHeaders
+    })
+    //Promesas con respuesta y los datos
+        .then(res => res.json()) //Pasando la respuesta a formato json
+        .then(data => console.log(data))
+            data.products.map(product => {
+                let text = document.createTextNode(product.name)
+                let elem = document.createElement('li')
+                elem.appendChild(text)
+                productList.appendChild(elem)
+            })
+
+            document.body.appendChild(productList)
+</script>
