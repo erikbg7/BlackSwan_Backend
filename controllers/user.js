@@ -31,31 +31,12 @@ function signIn (req, res) {
     })
 }
 
-
-function saveUser (req, res) {
-    console.log('POST /api/user')
-    console.log(req.body) //Mostrar todo el cuerpo (body)
-
-    let user = new User()
-    user.email= req.body.email,
-    user.displayName= req.body.displayName,
-    user.password = req.body.password
-
-    user.save((err, userStored) => {
-        if (err) res.status(500).send({message: `Error al salvar en la BBDD: ${err}`})
-    
-        res.status(200).send({user: userStored})
-    })
-}
-
-
 function getUsers (req, res) {
     User.find({}, (err, users) => {
         if (err) return res.status(500).send({message: `Error al realizar la petición: ${err} `})
         if (!users) return res.status(404).send({message: 'No existen productos'})
        
-        //Finalizar petición y comprobar que funciona
-        res.send(200, { users })
+        res.status(200).send(users)
     })
 }
 
@@ -66,8 +47,25 @@ function getUser (req,res) {
         if (err) return res.status(500).send({message: `Error al realizar la petición: ${err} `})
         if (!user) return res.status(404).send({message: `El user no existe`})
   
-        res.status(200).send({ user })
+        res.status(200).send(user)
     })
+}
+
+
+function saveUser (req, res) {
+  console.log('POST /api/user')
+  console.log(req.body) //Mostrar todo el cuerpo (body)
+
+  let user = new User()
+  user.email= req.body.email,
+    user.displayName= req.body.displayName,
+    user.password = req.body.password
+
+  user.save((err, userStored) => {
+    if (err) res.status(500).send({message: `Error al salvar en la BBDD: ${err}`})
+
+    res.status(200).send({user: userStored})
+  })
 }
 
 

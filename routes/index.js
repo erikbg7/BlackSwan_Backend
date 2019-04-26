@@ -12,15 +12,19 @@ api.get('/product/:productId', productCtrl.getProduct)
 api.post('/product', auth, productCtrl.saveProduct)
 api.put('/product/:productId', auth, productCtrl.updateProduct)
 api.delete('/product/:productId', auth, productCtrl.deleteProduct)
-api.post('/user', userCtrl.saveUser)
-api.get('/users', userCtrl.getUsers)
-api.get('/user/:userId', userCtrl.getUser)
-api.delete('/user/:userId', userCtrl.deleteUser)
 
-api.post('/signup', userCtrl.signUp)
-api.post('/signin', userCtrl.signIn)
+
+
+// RUTAS PARA USERS
 api.get('/private', auth, (req, res) => {
   res.status(200).send({ message: 'Tienes acceso' })
 })
+api.post('/signup', userCtrl.signUp)
+api.post('/signin', userCtrl.signIn)
+api.get('/users', userCtrl.getUsers)
+api.get('/users/:userId', userCtrl.getUser)
+api.post('/users', userCtrl.saveUser)
+api.delete('/users/:userId', userCtrl.deleteUser)
+
 
 module.exports = api
