@@ -4,6 +4,9 @@ const User = require('../models/user')
 const service = require('../services')
 
 function signUp (req, res) {
+
+  console.log('signup ', req.body);
+
     const user = new User({
         email: req.body.email,
         displayName: req.body.displayName,
@@ -19,16 +22,30 @@ function signUp (req, res) {
 }
 
 function signIn (req, res) {
-    User.find({ email: req.body.email }, (err, user) => {
-        if (err) return res.status(500).send ({ message: err})
-        if (!user) return res.status(404).send({ message: 'No existe el usuario'})
 
-        res.user = user
-        res.status(200).send({
-            message: 'Te has logueado correctamente',
-            token: service.createToken(user)
-        })
-    })
+   // console.log('request ', req);
+
+  User.find({ email: req.body.email }, (err, user) => {
+    console.log(!user)
+    console.log(user)
+    if (err) return res.status(500).send ({ message: err})
+    if (user.length === 0) return res.status(404).send({ message: 'User does not exist'})
+
+
+    console.log('user ddbb', user);
+
+    res.user = user;
+    console.log('pass-> ', user[0].password);
+    if(user[0].password === req.body.password) {
+      res.status(200).send({
+        message: 'Te has logueado correctamente',
+        token: service.createToken(user)
+      })
+    }
+    else {
+        res.status(402).send({message: 'Incorrect password'})
+    }
+  })
 }
 
 function getUsers (req, res) {

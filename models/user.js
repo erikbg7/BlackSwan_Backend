@@ -10,7 +10,8 @@ const UserSchema = new Schema ({
     email: { type: String, unique:true, lowercase: true},
     displayName: String,
     avatar: String,
-    password: { type: String, select: false }, //Para que al hacer un GET no se envíe la contraseña
+  //    password: { type: String, select: false }, //Para que al hacer un GET no se envíe la contraseña
+    password: { type: String }, //Para que al hacer un GET no se envíe la contraseña
     signupDate: { type: Date, default: Date.now() },
     lastLogin: Date
 })
